@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,13 +12,13 @@ class LeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(FlasherInterface $flasher)
+    public function index()
     {
         $user = Auth::user();
         $check = $user->hasPermissionTo('lead-management');
 
         if(!$check) {
-            $flasher->addWarning('You are not authorized to access this page');
+            flash()->addWarning('You are not authorized to access this page');
             return redirect()->route('dashboard');
         }
 
