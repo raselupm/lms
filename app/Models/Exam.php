@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Exam extends Model
 {
     use HasFactory;
+
+    public function homeworks() {
+        return $this->hasMany(Homework::class);
+    }
 }
