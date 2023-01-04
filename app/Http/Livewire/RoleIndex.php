@@ -14,4 +14,12 @@ class RoleIndex extends Component
             'roles' => $roles
         ]);
     }
+
+    public function roleDelete($id)
+    {
+        $role = Role::find($id);
+        $role->delete();
+
+        flash()->addSuccess('Role Deleted Successfully.');
+    }
 }
