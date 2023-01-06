@@ -5,7 +5,7 @@
                 {{ __('Courses') }}
             </h2>
 
-            <a href="{{route('course.create')}}">Add a course</a>
+            <a class="lms-btn" href="{{ route('course.create') }}">Add a course</a>
         </div>
     </x-slot>
 

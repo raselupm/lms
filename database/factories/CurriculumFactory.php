@@ -18,7 +18,7 @@ class CurriculumFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'course_id' => 1
+            'course_id' => 1,
         ];
     }
 }

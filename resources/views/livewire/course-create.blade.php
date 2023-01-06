@@ -33,9 +33,10 @@
         <div class="w-full mr-4">
             <label class="lms-label" for="days">Days</label>
             <div class="flex flex-wrap -mx-4">
-                @foreach($days as $day)
+                @foreach ($days as $day)
                     <div class="min-w-max flex items-center px-4">
-                        <input wire:model.lazy="selectedDays" class="mr-2" type="checkbox" value="{{$day}}" id="{{$day}}"> <label for="{{$day}}">{{ucfirst($day)}}</label>
+                        <input wire:model.lazy="selectedDays" class="mr-2" type="checkbox" value="{{ $day }}"
+                            id="{{ $day }}"> <label for="{{ $day }}">{{ ucfirst($day) }}</label>
                     </div>
                 @endforeach
             </div>
