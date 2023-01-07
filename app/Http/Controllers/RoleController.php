@@ -56,7 +56,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return view('user.role.edit');
+        return view('user.role.edit', [
+            'roleId' => $id
+        ]);
     }
 
     /**
