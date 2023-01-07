@@ -1,6 +1,7 @@
 <div>
     <table class="w-full table-auto">
         <tr>
+            <th class="border px-4 py-2 text-left">Id</th>
             <th class="border px-4 py-2 text-left">Name</th>
             <th class="border px-4 py-2 text-left">Email</th>
             <th class="border px-4 py-2 text-left">Phone</th>
@@ -9,6 +10,7 @@
         </tr>
         @foreach($leads as $lead)
             <tr>
+                <td class="border px-4 py-2">{{$lead->id}}</td>
                 <td class="border px-4 py-2">{{$lead->name}}</td>
                 <td class="border px-4 py-2">{{$lead->email}}</td>
                 <td class="border px-4 py-2">{{$lead->phone}}</td>
