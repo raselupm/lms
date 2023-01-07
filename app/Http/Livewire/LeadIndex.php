@@ -8,6 +8,8 @@ use Livewire\WithPagination;
 
 class LeadIndex extends Component
 {
+
+    use WithPagination;
     public function render()
     {
         $leads = Lead::paginate(10);
