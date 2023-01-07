@@ -62,7 +62,9 @@ class UserController extends Controller
     {
         permission_check('user-management');
 
-        return view('user.edit');
+        return view('user.edit', [
+            'user_id' => $id
+        ]);
     }
 
     /**
