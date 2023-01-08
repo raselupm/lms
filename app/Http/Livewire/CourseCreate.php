@@ -54,7 +54,7 @@ class CourseCreate extends Component
             $interval =  new DateInterval('P1D');
             $date_range = new DatePeriod($start_date, $interval, $end_date);
             foreach ($date_range as $date) {
-                if($date->format("l") === "Sunday"){ // Need to make Selected day Dynamic
+                if($date->format("l") === ucfirst($day) {
                     $curriculum = Curriculum::create([
                         'name' => $this->name.' '.$i++,
                         'course_id' => $course_id,
