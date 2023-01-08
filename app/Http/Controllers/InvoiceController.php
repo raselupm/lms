@@ -34,8 +34,9 @@ class InvoiceController extends Controller
         }
 
         $invoice = \LaravelDaily\Invoices\Invoice::make()
-            ->buyer($customer)
-            ->addItems($items);
+        ->buyer($customer)
+        ->currencySymbol('$')
+        ->addItems($items);
 
         return $invoice->stream();
     }

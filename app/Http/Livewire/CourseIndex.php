@@ -2,12 +2,19 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Course;
 use Livewire\Component;
 
 class CourseIndex extends Component
 {
     public function render()
     {
-        return view('livewire.course-index');
+        $course = Course::paginate(10);
+
+        return view('livewire.course-index',[
+            'courses' =>$course,
+        ]);
+
+
     }
 }
