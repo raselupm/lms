@@ -34,13 +34,14 @@ class CourseCreate extends Component
         'name' => 'required|unique:courses,name',
         'description' => 'required',
         'price' => 'required',
+        'selectedDays' => 'required',
+        'time' => 'required'
     ];
 
     public function render()
     {
         return view('livewire.course-create');
     }
-
 
     public function formSubmit()
     {
@@ -52,15 +53,15 @@ class CourseCreate extends Component
             'user_id' => Auth::user()->id
         ]);
 
-        foreach ($this->selectedDays as $day) {
-            // check how many sunday available
-            $i = 1;
-            $start_date = new DateTime(Carbon::now());
-            $endDate =   new DateTime($this->end_date);
-            $interval =  new DateInterval('P1D');
-            $date_range = new DatePeriod($start_date, $interval, $endDate);
-            foreach ($date_range as $date) {
-                if ($date->format("l") === $day) { // Need to make Selected day Dynamic
+        // check how many sunday available
+        $i = 1;
+        $start_date = new DateTime(Carbon::now());
+        $endDate =   new DateTime($this->end_date);
+        $interval =  new DateInterval('P1D');
+        $date_range = new DatePeriod($start_date, $interval, $endDate);
+        foreach ($date_range as $date) {
+            foreach ($this->selectedDays as $day) {
+                if ($date->format("l") === $day) {
                     Curriculum::create([
                         'name' => $this->name . ' #' . $i++,
                         'week_day' => $day,
@@ -70,8 +71,8 @@ class CourseCreate extends Component
                     ]);
                 }
             }
-            $i++;
         }
+        $i++;
 
         flash()->addSuccess('Course created successfully');
 
