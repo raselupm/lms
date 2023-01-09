@@ -36,8 +36,14 @@ class CourseCreate extends Component
         'price' => 'required',
     ];
 
+    public function render()
+    {
+        return view('livewire.course-create');
+    }
 
-    public function formSubmit() {
+
+    public function formSubmit()
+    {
         $this->validate();
         $course = Course::create([
             'name' => $this->name,
@@ -45,19 +51,22 @@ class CourseCreate extends Component
             'price' => $this->price,
             'user_id' => Auth::user()->id
         ]);
-        $course_id = $course->id;
-        foreach($this->selectedDays as $day) {
+
+        foreach ($this->selectedDays as $day) {
             // check how many sunday available
             $i = 1;
             $start_date = new DateTime(Carbon::now());
-            $end_date =   new DateTime($this->end_date);
+            $endDate =   new DateTime($this->end_date);
             $interval =  new DateInterval('P1D');
-            $date_range = new DatePeriod($start_date, $interval, $end_date);
+            $date_range = new DatePeriod($start_date, $interval, $endDate);
             foreach ($date_range as $date) {
-                if($date->format("l") === "Sunday"){ // Need to make Selected day Dynamic
-                    $curriculum = Curriculum::create([
-                        'name' => $this->name.' '.$i++,
-                        'course_id' => $course_id,
+                if ($date->format("l") === $day) { // Need to make Selected day Dynamic
+                    Curriculum::create([
+                        'name' => $this->name . ' #' . $i++,
+                        'week_day' => $day,
+                        'class_time' => $this->time,
+                        'end_date' => $this->end_date,
+                        'course_id' => $course->id,
                     ]);
                 }
             }
@@ -67,11 +76,5 @@ class CourseCreate extends Component
         flash()->addSuccess('Course created successfully');
 
         return redirect()->route('course.index');
-    }
-
-
-    public function render()
-    {
-        return view('livewire.course-create');
     }
 }
