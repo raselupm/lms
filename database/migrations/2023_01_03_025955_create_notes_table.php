@@ -49,5 +49,7 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('notes');
+        Schema::dropIfExists('lead_note');
+        Schema::dropIfExists('curriculum_note');
     }
 };
