@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Course;
 
 class CourseController extends Controller
 {
@@ -20,6 +21,15 @@ class CourseController extends Controller
     {
         return view('course.edit', [
             'course_id' => $id,
+        ]);
+    }
+
+    public function show($id)
+    {
+        $course = Course::where('id', $id)->with('curriculumns')->first();
+
+        return view('course.show', [
+            'course' => $course,
         ]);
     }
 }

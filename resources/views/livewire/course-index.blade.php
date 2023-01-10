@@ -23,7 +23,7 @@
                         @include('components.icons.edit')
                     </a>
 
-                    <a class="px-2" href="">
+                    <a class="px-2" href="{{ route('course.show',$course->id) }}">
                         @include('components.icons.eye')
                     </a>
 
