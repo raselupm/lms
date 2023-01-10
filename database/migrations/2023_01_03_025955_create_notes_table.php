@@ -16,16 +16,28 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->unsignedBigInteger('curriculum_id')->nullable();
-            $table->unsignedBigInteger('exam_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('lead_id')->nullable();
+            $table->timestamps();
+        });
+
+
+        Schema::create('lead_note', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('note_id');
+            $table->unsignedBigInteger('lead_id');
             $table->timestamps();
 
-            $table->foreign('curriculum_id')->references('id')->on('curriculums')->onDelete('cascade');
-            $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->foreign('lead_id')->references('id')->on('leads')->onDelete('cascade');
+        });
+
+        Schema::create('curriculum_note', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('note_id');
+            $table->unsignedBigInteger('curriculum_id');
+            $table->timestamps();
+
+            $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
+            $table->foreign('curriculum_id')->references('id')->on('curriculums')->onDelete('cascade');
         });
     }
 

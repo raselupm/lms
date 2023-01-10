@@ -14,30 +14,34 @@ class InvoiceController extends Controller
     }
 
     public function show($id) {
-        $DBinvoice = Invoice::findOrFail($id);
+//        $DBinvoice = Invoice::findOrFail($id);
+//
+//        $customer = new Buyer([
+//            'name'          => $DBinvoice->user->name,
+//            'custom_fields' => [
+//                'email' => $DBinvoice->user->email,
+//            ],
+//        ]);
+//
+//        $items = [];
+//        foreach($DBinvoice->items as $item) {
+//            $items[] = (new InvoiceItem())->title($item->name)->pricePerUnit($item->price)->quantity($item->quantity);
+//        }
+//
+//        // payments
+//        foreach($DBinvoice->payments as $payment) {
+//            $items[] = (new InvoiceItem())->title('Payment')->pricePerUnit(-$payment->amount)->quantity(1);
+//        }
+//
+//        $invoice = \LaravelDaily\Invoices\Invoice::make()
+//        ->buyer($customer)
+//        ->currencySymbol('$')
+//        ->addItems($items);
+//
+//        return $invoice->stream();
 
-        $customer = new Buyer([
-            'name'          => $DBinvoice->user->name,
-            'custom_fields' => [
-                'email' => $DBinvoice->user->email,
-            ],
+        return view('user.invoice.show', [
+            'invoice_id' => $id,
         ]);
-
-        $items = [];
-        foreach($DBinvoice->items as $item) {
-            $items[] = (new InvoiceItem())->title($item->name)->pricePerUnit($item->price)->quantity($item->quantity);
-        }
-
-        // payments
-        foreach($DBinvoice->payments as $payment) {
-            $items[] = (new InvoiceItem())->title('Payment')->pricePerUnit(-$payment->amount)->quantity(1);
-        }
-
-        $invoice = \LaravelDaily\Invoices\Invoice::make()
-        ->buyer($customer)
-        ->currencySymbol('$')
-        ->addItems($items);
-
-        return $invoice->stream();
     }
 }
