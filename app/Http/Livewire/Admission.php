@@ -28,23 +28,26 @@ class Admission extends Component
         ]);
     }
 
-    public function search() {
+    public function search()
+    {
         $this->leads = Lead::where('name', 'like', '%' . $this->search . '%')
             ->orWhere('email', 'like', '%' . $this->search . '%')
             ->orWhere('phone', 'like', '%' . $this->search . '%')
             ->get();
     }
 
-    public function courseSelected() {
+    public function courseSelected()
+    {
         $this->selectedCourse = Course::findOrFail($this->course_id);
     }
 
-    public function admit() {
+    public function admit()
+    {
         $lead = Lead::findOrFail($this->lead_id);
         $user = User::create([
             'name' => $lead->name,
             'email' => $lead->email,
-            'password' => Str::random(8),
+            'password' => bcrypt(Str::random(8)),
         ]);
 
         $lead->delete();
@@ -63,7 +66,7 @@ class Admission extends Component
 
         $this->selectedCourse->students()->attach($user->id);
 
-        if(!empty($this->payment)) {
+        if (!empty($this->payment)) {
             Payment::create([
                 'amount' => $this->payment,
                 'invoice_id' => $invoice->id,
