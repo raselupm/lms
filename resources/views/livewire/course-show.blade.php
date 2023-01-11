@@ -11,27 +11,28 @@
             <th class="border px-4 py-2 text-left">Actions</th>
         </tr>
 
-        @foreach ($course->curriculumns as $class)
-            <tr>
-                <td class="border px-4 py-2">{{$class->name}}</td>
-                <td class="border px-4 py-2">
-                    <div class="flex items-center justify-center">
-                        <a class="mr-1" href="{{route('class.edit',$class->id)}}">
-                            @include('components.icons.edit')
-                        </a>
+        @foreach ($curriculums as $class)
+        <tr>
+            <td class="border px-4 py-2">{{$class->name}}</td>
+            <td class="border px-4 py-2">
+                <div class="flex items-center justify-center">
+                    <a class="mr-1" href="{{route('class.edit',$class->id)}}">
+                        @include('components.icons.edit')
+                    </a>
 
-                        <a class="mr-1" href="{{route('class.show', $class->id)}}">
-                            @include('components.icons.eye')
-                        </a>
+                    <a class="mr-1" href="{{route('class.show', $class->id)}}">
+                        @include('components.icons.eye')
+                    </a>
 
-                        <form class="ml-1" onsubmit="return confirm('Are you sure?');" wire:submit.prevent="curriculamDelete({{$class->id}})">
-                            <button type="submit">
-                                @include('components.icons.trash')
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
+                    <form class="ml-1" onsubmit="return confirm('Are you sure?');"
+                        wire:submit.prevent="curriculamDelete({{$class->id}})">
+                        <button type="submit">
+                            @include('components.icons.trash')
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
         @endforeach
     </table>
 </div>

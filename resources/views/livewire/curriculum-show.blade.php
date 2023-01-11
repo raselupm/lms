@@ -11,30 +11,30 @@
         <tr>
             <th class="border px-4 py-2 text-left">Name</th>
             <th class="border px-4 py-2 text-left">Email</th>
-            <th class="border px-4 py-2 text-left">Attendance</th>
+            <th class="border px-4 py-2 text-center">Attendance</th>
         </tr>
 
         @foreach ($curriculum->course->students as $student)
-            <tr>
-                <td class="border px-4 py-2">{{$student->name}}</td>
-                <td class="border px-4 py-2">{{$student->email}}</td>
-                <td class="border px-4 py-2">
-                    <div class="flex items-center justify-center gap-4">
-                        <a href="" class="py-2 px-3 bg-green-500 text-white">Present</a>
-                        <a href="" class="py-2 px-3 bg-red-500 text-white">Absent</a>
-                    </div>
-                </td>
-            </tr>
+        <tr>
+            <td class="border px-4 py-2">{{$student->name}}</td>
+            <td class="border px-4 py-2">{{$student->email}}</td>
+            <td class="border px-4 py-2">
+                <div class="flex items-center justify-center gap-4">
+                    <a href="" class="py-2 px-3 bg-green-500 text-white">Present</a>
+                    <a href="" class="py-2 px-3 bg-red-500 text-white">Absent</a>
+                </div>
+            </td>
+        </tr>
         @endforeach
     </table>
 
     <h3 class="font-bold text-lg my-4">Notes</h3>
     @if (count($notes)>0)
-        @foreach($notes as $note)
-            <div class="mb-4 border border-gray-100 p-4">{{$note->description}}</div>
-        @endforeach
+    @foreach($notes as $note)
+    <div class="mb-4 border border-gray-100 p-4">{{$note->description}}</div>
+    @endforeach
     @else
-        <p class="py-4 text-red-400">Not Found Any Note!</p>
+    <p class="py-4 text-red-400">Not Found Any Note!</p>
     @endif
 
     <h4 class="font-bold mb-2">Add new note</h4>
