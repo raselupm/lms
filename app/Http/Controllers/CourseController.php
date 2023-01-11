@@ -26,10 +26,6 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        $course = Course::where('id', $id)->with('curriculumns')->first();
-
-        return view('course.show', [
-            'course' => $course,
-        ]);
+        return view('course.show',['id' => $id]);
     }
 }
