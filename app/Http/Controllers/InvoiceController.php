@@ -40,7 +40,7 @@ class InvoiceController extends Controller
 //
 //        return $invoice->stream();
 
-        return view('user.invoice.show', [
+        return view('invoice.show', [
             'invoice_id' => $id,
         ]);
     }
