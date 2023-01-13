@@ -1,11 +1,11 @@
 <form wire:submit.prevent="formSubmit">
     <div class="mb-6">
         @include('components.form-field', [
-        'name' => 'name',
-        'label' => 'Name',
-        'type' => 'text',
-        'placeholder' => 'Enter name',
-        'required' => 'required',
+            'name' => 'name',
+            'label' => 'Name',
+            'type' => 'text',
+            'placeholder' => 'Enter name',
+            'required' => 'required',
         ])
     </div>
 
