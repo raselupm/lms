@@ -28,4 +28,11 @@ class QuizController extends Controller
             'quiz' => $quiz,
         ]);
     }
+
+    public function quizShow($id) {
+        $quiz = Quiz::findOrFail($id);
+        return view('quiz.quiz-show', [
+            'quiz' => $quiz,
+        ]);
+    }
 }
