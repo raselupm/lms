@@ -1,4 +1,4 @@
-<form wire:submit.prevent="formSubmit">
+<form wire:submit.prevent="questionUpdate">
     <div class="mb-4">
         @include('components.form-field', [
         'name' => 'name',
