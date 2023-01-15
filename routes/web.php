@@ -46,8 +46,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('course', CourseController::class);
     Route::resource('class', CurriculamController::class);
-    Route::resource('question', QuestionController::class);
-    Route::resource('quiz', QuizController::class);
+    Route::resource('/question', QuestionController::class);
+    Route::resource('/quiz', QuizController::class);
 
     Route::get('/quiz-show/{id}', [QuizController::class, 'quizShow'])->name('quiz-show');
     Route::post('/stripe-payment', [StripePaymentController::class, 'stripePayment'])->name('stripe-payment');
