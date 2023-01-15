@@ -12,18 +12,18 @@
                     <form action="{{route('quiz.store')}}" method="post"> @csrf
                         <div class="mb-4">
                             <label for="name" class="lms-label">Name</label>
-                            <input type="text" name="name" id="name" class="lms-input">
+                            <input type="text" name="name" id="name" class="lms-input" placeholder="Name">
                         </div>
+                        @error('name')
+                        <div class="text-red-500 text-sm mt-1 mb-2">{{ $message }}</div>
+                        @enderror
+
                         <button type="submit" class="lms-btn">Add a quiz</button>
-
-
-
-
-                    <livewire:quiz-index  />
                     </form>
+
+                    <livewire:quiz-index />
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
-

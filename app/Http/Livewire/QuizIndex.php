@@ -12,7 +12,16 @@ class QuizIndex extends Component
     public function render()
     {
         $quizzes = Quiz::paginate(10);
-        return view('livewire.quiz-index',[
-            'quizzes' => $quizzes]);
+        return view('livewire.quiz-index', [
+            'quizzes' => $quizzes
+        ]);
+    }
+
+    public function deleteQuiz($id)
+    {
+        $quiz = Quiz::findOrFail($id);
+        $quiz->delete();
+
+        flash()->addSuccess('Quiz deleted successfully');
     }
 }
