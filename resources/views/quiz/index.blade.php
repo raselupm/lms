@@ -15,9 +15,15 @@
                             <input type="text" name="name" id="name" class="lms-input">
                         </div>
                         <button type="submit" class="lms-btn">Add a quiz</button>
+
+
+
+
+                    <livewire:quiz-index  />
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+
