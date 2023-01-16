@@ -19,6 +19,11 @@ class Admission extends Component
     public $course_id;
     public $payment;
     public $selectedCourse;
+    public $name;
+    public $email;
+    public $password;
+    public $notFound = false;
+    public $user_id;
 
     public function render()
     {
@@ -30,6 +35,10 @@ class Admission extends Component
 
     public function search()
     {
+        $this->notFound = true;
+        $this->course_id = null;
+        $this->lead_id = null;
+        $this->selectedCourse = null;
         $this->leads = Lead::where('name', 'like', '%' . $this->search . '%')
             ->orWhere('email', 'like', '%' . $this->search . '%')
             ->orWhere('phone', 'like', '%' . $this->search . '%')
@@ -81,6 +90,58 @@ class Admission extends Component
         $this->lead_id = null;
         $this->search = null;
         $this->leads = [];
+        $this->notFound = false;
+
+
+        flash()->addSuccess('Admission successful');
+    }
+    public function addStudent(){
+        $this->validate([
+            'name'=>'required',
+            'email'=>'required|email',
+            'password'=>'required'
+        ]);
+        $user = User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+        ]);
+
+        $this->user_id = $user->id;
+
+    }
+    public function studentAdmit(){
+
+        $invoice = Invoice::create([
+            'due_date' => now()->addDays(7),
+            'user_id' => $this->user_id,
+        ]);
+
+        InvoiceItem::create([
+            'name' => 'Course: ' . $this->selectedCourse->name,
+            'price' => $this->selectedCourse->price,
+            'quantity' => 1,
+            'invoice_id' => $invoice->id,
+        ]);
+
+        $this->selectedCourse->students()->attach($this->user_id);
+
+        if (!empty($this->payment)) {
+            Payment::create([
+                'amount' => $this->payment,
+                'invoice_id' => $invoice->id,
+                'transaction_id' => Str::random(8),
+            ]);
+        }
+
+
+
+        $this->selectedCourse = null;
+        $this->course_id = null;
+        $this->lead_id = null;
+        $this->search = null;
+        $this->leads = [];
+        $this->notFound = false;
 
 
         flash()->addSuccess('Admission successful');
