@@ -19,6 +19,10 @@ class Admission extends Component
     public $course_id;
     public $payment;
     public $selectedCourse;
+    public $name;
+    public $email;
+    public $password;
+    public $notFound = false;
 
     public function render()
     {
@@ -30,6 +34,10 @@ class Admission extends Component
 
     public function search()
     {
+        $this->notFound = true;
+        $this->course_id = null;
+        $this->lead_id = null;
+        $this->selectedCourse = null;
         $this->leads = Lead::where('name', 'like', '%' . $this->search . '%')
             ->orWhere('email', 'like', '%' . $this->search . '%')
             ->orWhere('phone', 'like', '%' . $this->search . '%')
@@ -81,8 +89,24 @@ class Admission extends Component
         $this->lead_id = null;
         $this->search = null;
         $this->leads = [];
+        $this->notFound = false;
 
 
         flash()->addSuccess('Admission successful');
+    }
+    public function addStudent(){
+        $this->validate([
+            'name'=>'required',
+            'email'=>'required|email',
+            'password'=>'required'
+        ]);
+        $user = User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+        ]);
+
+        $this->lead_id = $user->id;
+
     }
 }
