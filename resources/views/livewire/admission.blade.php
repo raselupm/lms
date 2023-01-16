@@ -70,13 +70,15 @@
 
             </div>
 
-            @if (empty($lead_id))
-                @include('components.wire-loading-btn')
-            @endif
+          <div class="mt-3">
+              @if (empty($user_id))
+                  @include('components.wire-loading-btn')
+              @endif
+          </div>
         </form>
 
-        <form class="mt-4" wire:submit.prevent="admit">
-            @if(!empty($lead_id))
+        <form class="mt-4" wire:submit.prevent="studentAdmit">
+            @if(!empty($user_id))
                 <div class="mb-4">
                     <select wire:change="courseSelected" wire:model.lay="course_id" class="lms-input">
                         <option value="">Select course</option>
