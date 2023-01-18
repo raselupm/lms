@@ -64,4 +64,12 @@ class LeadEdit extends Component
 
         flash()->addSuccess('Note added successfully');
     }
+    public function noteDelete($id) {
+        
+        $note = Note::findOrFail($id);
+        $note->delete();
+
+        flash()->addSuccess('Note deleted successfully');
+        
+    }
 }
