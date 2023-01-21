@@ -37,6 +37,11 @@ class InvoiceEdit extends Component
             'invoice_id' => $this->invoice_id,
         ]);
 
+        Payment::create([
+            'invoice_id' => $this->invoice_id,
+            'amount' => $this->price * $this->quantity,
+        ]);
+
         $this->name = '';
         $this->price = '';
         $this->quantity = '';
