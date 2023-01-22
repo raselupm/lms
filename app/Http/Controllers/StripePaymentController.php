@@ -6,6 +6,7 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Stripe\StripeClient;
+use Illuminate\Support\Str;
 
 class StripePaymentController extends Controller
 {
@@ -56,5 +57,26 @@ class StripePaymentController extends Controller
             flash()->addSuccess('Payment successful');
         }
         return redirect()->back();
+    }
+
+    public function cashPayment () {
+        $validator = Validator::make(request()->all(), [
+            'amount' => 'required',
+            'invoice_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            flash()->addWarning('Please fill in all the fields');
+            return redirect()->back()->withErrors($validator);
+        } else {
+            Payment::create([
+                'invoice_id' => request()->invoice_id,
+                'amount' => request()->amount,
+                'transaction_id' => Str::random(8),
+            ]);
+
+            flash()->addSuccess('Payment successful');
+            return redirect()->back();
+        }
     }
 }

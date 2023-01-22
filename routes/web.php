@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/quiz-show/{id}', [QuizController::class, 'quizShow'])->name('quiz-show');
     Route::post('/stripe-payment', [StripePaymentController::class, 'stripePayment'])->name('stripe-payment');
+    Route::post('/cash-payment', [StripePaymentController::class, 'cashPayment'])->name('cash-payment');
 });
 
 require __DIR__.'/auth.php';

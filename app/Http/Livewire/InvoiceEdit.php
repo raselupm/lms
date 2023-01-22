@@ -7,6 +7,7 @@ use App\Models\InvoiceItem;
 use App\Models\Payment;
 use Livewire\Component;
 use Stripe\StripeClient;
+use Illuminate\Support\Str;
 
 class InvoiceEdit extends Component
 {
@@ -40,6 +41,7 @@ class InvoiceEdit extends Component
         Payment::create([
             'invoice_id' => $this->invoice_id,
             'amount' => $this->price * $this->quantity,
+            'transaction_id' => Str::random(8),
         ]);
 
         $this->name = '';
