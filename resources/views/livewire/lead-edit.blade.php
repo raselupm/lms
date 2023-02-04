@@ -33,7 +33,14 @@
 
     <h3 class="font-bold text-lg mb-4">Notes</h3>
     @foreach($notes as $note)
-    <div class="mb-4 border border-gray-100 p-4">{{$note->description}}</div>
+        <div class="flex justify-between mb-4 border border-gray-100 p-4">
+            {{$note->description}}
+            <form class="ml-1" onsubmit="return confirm('Are you sure?');" wire:submit.prevent="noteDelete({{$note->id}})">
+                <button type="submit">
+                    @include('components.icons.trash')
+                </button>
+            </form>
+        </div>
     @endforeach
 
 
